@@ -12,18 +12,18 @@
 #define _INTERVAL_SERIAL  80 // serial interval (unit: ms)
 
 // EMA filter configuration for the IR distance sensor
-#define _EMA_ALPHA 0.4       // EMA weight of new sample (range: 0 to 1)
+#define _EMA_ALPHA 0.8       // EMA weight of new sample (range: 0 to 1)
 
 // Servo adjustment
-#define _DUTY_NEU 1700  // Servo angle: 0 degree
-#define _DUTY_MAX 2900  // Servo angle: D degree
-#define _DUTY_MIN 800   // Servo angle: E degree
-#define _SERVO_ANGLE_DIFF 60 // Replace with |D - E| degree
-#define _SERVO_SPEED 380 // servo speed limit (unit: degree/second)
+#define _DUTY_NEU 1400  // Servo angle: 0 degree
+#define _DUTY_MAX 2000  // Servo angle: D degree
+#define _DUTY_MIN 600   // Servo angle: E degree
+#define _SERVO_ANGLE_DIFF 85 // Replace with |D - E| degree
+#define _SERVO_SPEED 260 // servo speed limit (unit: degree/second)
 
 // PID parameters
-#define _KP 4.9 // proportional gain
-#define _KD 390 // derivative gain
+#define _KP 12 // proportional gain
+#define _KD 500 // derivative gain
 //#define _KI 0 // integral gain
 
 // global variables
@@ -85,7 +85,7 @@ void loop()
     event_dist = false;
     
     // Get a distance reading from the distance sensor
-    dist_filtered = volt_to_distance(ir_sensor_filtered(20, 0.5));
+    dist_filtered = volt_to_distance(ir_sensor_filtered(50, 0.5));
     dist_ema = _EMA_ALPHA * dist_ema + (1.0 - _EMA_ALPHA) * dist_filtered;
 
     // Update PID control variables
